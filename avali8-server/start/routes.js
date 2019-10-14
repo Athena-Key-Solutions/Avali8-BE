@@ -19,7 +19,9 @@ const Route = use('Route')
 Route.group(() => {
   Route.post('/signup', 'UserController.create')
   Route.post('/login', 'SessionController.login')
+  Route.post('/token/refresh', 'SessionController.refreshToken')
   Route.post('/logout', 'SessionController.logout')
+  
 }).prefix('avali8/api/v1')
 
 Route.get('/', () => {
