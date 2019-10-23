@@ -34,8 +34,6 @@ class UserController {
         response.status(401).send(validation.messages());
       }
     }
-    
-    
 }
 
 module.exports = UserController

@@ -19,6 +19,7 @@ class User extends Model {
         userInstance.password = await Hash.make(userInstance.password)
       }
     })
+
   }
 
   /**
@@ -34,6 +35,14 @@ class User extends Model {
   tokens () {
     return this.hasMany('App/Models/Token')
   }
+
+  static get traits () {
+    return [
+      '@provider:Adonis/Acl/HasRole',
+      '@provider:Adonis/Acl/HasPermission'
+    ]
+  }
+
 }
 
 module.exports = User

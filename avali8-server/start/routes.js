@@ -16,16 +16,25 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
+
+// Those routes should be only accessible
+// when you are not logged in
 Route.group(() => {
   Route.post('/signup', 'UserController.create')
   Route.post('/login', 'SessionController.login')
-  Route.post('/token/refresh', 'SessionController.refreshToken')
-  Route.post('/logout', 'SessionController.logout')
   
+}).prefix('avali8/api/v1')
+  .middleware(['guest'])
+
+// Those routes should be only accessible
+// when you are logged in
+Route.group(() => {
+  Route.post('/logout', 'SessionController.logout')
+  Route.post('/token/refresh', 'SessionController.refreshToken')
 }).prefix('avali8/api/v1')
 
 Route.get('/', () => {
-  return '<p>This is the Avali8 API</p>'
+  return '<p>Avali8 API</p>'
 })
 
 
