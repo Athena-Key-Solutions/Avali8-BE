@@ -37,4 +37,8 @@ Route.get('/', () => {
   return '<p>Avali8 API</p>'
 })
 
+Route.post('/testQuestion','QuestionController.store')
+Route.get('/questions', 'QuestionController.index')
+Route.post('/createQuestion', 'UserController.storeQuestion')
+Route.post('/userquestions', 'UserController.indexQuestion')
 
