@@ -41,4 +41,5 @@ Route.post('/testQuestion','QuestionController.store')
 Route.get('/questions', 'QuestionController.index')
 Route.post('/createQuestion', 'UserController.storeQuestion')
 Route.post('/userquestions', 'UserController.indexQuestion')
+Route.post('/user','UserController.show')
 

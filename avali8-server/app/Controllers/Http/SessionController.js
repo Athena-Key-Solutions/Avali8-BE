@@ -1,5 +1,6 @@
 'use strict'
 
+const User = use('App/Models/User')
 const Encryption = use('Encryption');
 const Token = use('App/Models/Token');
 const { validate } = use('Validator');
@@ -7,12 +8,15 @@ const { validate } = use('Validator');
 class SessionController {
 
     async login ({ request, auth }) { 
-        const { email, password } = request.all()
+        
+      const { email, password } = request.all()
     
-        const token = await auth
-                      .withRefreshToken()
-                      .attempt(email, password)
-        return token
+      const token = await auth.withRefreshToken().attempt(email, password)
+      const user = await User.query().where('email', email).fetch()
+      await auth.generate(user)
+      const auth0 = await auth.getUser();
+
+      return auth0
     }
 
     async logout({ request, response}) {

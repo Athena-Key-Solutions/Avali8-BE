@@ -6,7 +6,7 @@ const { validate } = use('Validator');
 
 class UserController {
     
-  /*async create ({ request, response }) {
+  async create ({ request, response }) {
       
       const rules = {
         email: 'required|email|unique:users,email',
@@ -34,15 +34,12 @@ class UserController {
       } else {
         response.status(401).send(validation.messages());
       }
-  }*/
+  }
 
 
   async index ({ request, response, view }) {
   }
   
-  async create ({ request, response, view }) {
-  }
-
   async store ({ request, response }) {
   }
 
@@ -50,16 +47,7 @@ class UserController {
   async storeQuestion({ request, response}) {
     
     const {questionData, alternatives} = request.post()
-    // const questionData = await Question.create(question)
-
-    // if(alternatives){
-      // await questionData.alternatives().create(alternatives)
-      // await questionData.load('alternatives')
-    // }
-
-
     const user = await User.find(1)
-    // const question = await Question.find(5)
     const recordedQuestion = await user.questions().create(questionData)
     await recordedQuestion.alternatives().create(alternatives)
     await user.load('questions.alternatives')
@@ -74,9 +62,15 @@ class UserController {
     return users
   }
 
-  async show ({ params, request, response, view }) {
+  async show ({ auth, params, response }) {
+    
+    // try {
+      return await auth.listTokens()
+    // } catch (error) {
+    //   response.send('You are not logged in')
+    // }
   }
-  
+
   async edit ({ params, request, response, view }) {
   }
   

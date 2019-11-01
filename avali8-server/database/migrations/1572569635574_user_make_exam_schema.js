@@ -3,12 +3,11 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class QuestionSchema extends Schema {
+class UserMakeExamSchema extends Schema {
   up () {
-    this.create('questions', (table) => {
-      
+    this.create('user_make_exam', (table) => {
+
       table.increments()
-      
       table.integer('user_id')
       .unsigned()
       .references('id')
@@ -25,17 +24,13 @@ class QuestionSchema extends Schema {
       .onDelete('CASCADE')
       .index('exam_id')
 
-      table.string('description', 500).notNullable().unique()
-      table.string('area', 100).notNullable()
-      table.enu('difficulty',['easy','medium','hard'])
       table.timestamps()
-
     })
   }
 
   down () {
-    this.drop('questions')
+    this.drop('user_make_exam')
   }
 }
 
-module.exports = QuestionSchema
+module.exports = UserMakeExamSchema

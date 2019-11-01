@@ -1,5 +1,8 @@
 'use strict'
 
+const Exam = use('App/Models/Exam')
+const Question = use('App/Models/Question')
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -41,6 +44,8 @@ class ExamController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    const {examData,questionData, ...data} = request.only(['examData','questionData'])
+    
   }
 
   /**

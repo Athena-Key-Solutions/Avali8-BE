@@ -22,12 +22,20 @@ class User extends Model {
 
   }
 
+  tokens () {
+    return this.hasMany('App/Models/Token','id','user_id')
+  }
+
   questions () {
     return this.hasMany('App/Models/Question','id','user_id')
   }
 
-  tokens () {
-    return this.hasMany('App/Models/Token')
+  makeExams() {
+    return this.belongsToMany('App/Models/Exam','user_id','exam_id','id','id').pivotTable('user_make_exam').withTimestamps()
+  }
+
+  exams() {
+    return this.hasMany('App/Models/Exam', 'id', 'exam_id')
   }
 
   static get traits () {

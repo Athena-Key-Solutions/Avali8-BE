@@ -12,6 +12,10 @@ class Question extends Model {
     users(){
         return this.belongsTo('App/Models/User','id','user_id')
     }
+
+    exams(){
+        return this.belongsTo('App/Models/Exam','id','exam_id')
+    }
 }
 
 module.exports = Question
