@@ -3,6 +3,9 @@
 const User = use("App/Models/User")
 const Question = use("App/Models/Question")
 const { validate } = use('Validator');
+const Encryption = use('Encryption');
+const Token = use('App/Models/Token');
+
 
 class UserController {
     
@@ -36,6 +39,34 @@ class UserController {
       }
   }
 
+  async show({request, response}){
+    // const user = await auth.getUser()
+    // const user = await auth.getUser()
+
+    // const user = await auth.getUser()
+    // const auth0 = await user.authenticator('jwt').generate(user)
+    const { refresh_token } = request.only(['refresh_token'])
+    const decrypted = Encryption.decrypt(refresh_token)
+    console.log("Console Log: "+decrypted)
+
+    try {
+      
+      const refreshToken = await Token.findBy('token', decrypted)
+      
+      if (refreshToken) {
+        const user = refreshToken.users().fetch()
+        
+        return user;
+
+      } else {
+        response.status(401).send({ error: 'Invalid refresh token' })
+      }
+    } catch (err) {
+      response.status(401).send({ error: err.toString()})
+    }
+
+  }
+
 
   async index ({ request, response, view }) {
   }
@@ -62,14 +93,14 @@ class UserController {
     return users
   }
 
-  async show ({ auth, params, response }) {
+  /*async show ({ auth, params, response }) {
     
     // try {
       return await auth.listTokens()
     // } catch (error) {
     //   response.send('You are not logged in')
     // }
-  }
+  }*/
 
   async edit ({ params, request, response, view }) {
   }

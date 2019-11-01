@@ -24,7 +24,6 @@ Route.group(() => {
   Route.post('/login', 'SessionController.login')
   
 }).prefix('avali8/api/v1')
-  .middleware(['guest'])
 
 // Those routes should be only accessible
 // when you are logged in
@@ -41,5 +40,5 @@ Route.post('/testQuestion','QuestionController.store')
 Route.get('/questions', 'QuestionController.index')
 Route.post('/createQuestion', 'UserController.storeQuestion')
 Route.post('/userquestions', 'UserController.indexQuestion')
-Route.post('/user','UserController.show')
+Route.post('/user','UserController.show').middleware('auth:session')
 

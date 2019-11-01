@@ -7,46 +7,41 @@ const { validate } = use('Validator');
 
 class SessionController {
 
-    async login ({ request, auth }) { 
-        
-      const { email, password } = request.all()
-    
-      const token = await auth.withRefreshToken().attempt(email, password)
-      const user = await User.query().where('email', email).fetch()
-      await auth.generate(user)
-      const auth0 = await auth.getUser();
+    async login ({ request, auth, response }) { 
 
-      return auth0
+      const { email, password } = request.all();
+      
+      try{
+        const isLogeddin = await auth.check()
+        
+        if(isLogeddin){
+          
+          response.status(401).send({ alert: 'User already logged in!' })
+        
+        }
+      }catch(err){
+        try{
+          await auth.attempt(email, password)
+          const user = await auth.getUser()
+          response.status(200).send({ message : 'Sucessfully Logged in!', user })
+        }catch(err){
+          response.status(401).send({ error: 'Credentials Invalid!' })
+        }
+      }
+      
     }
 
-    async logout({ request, response}) {
-        const rules = {
-          refresh_token: 'required'
-        };
-    
-        const { refresh_token } = request.only(['refresh_token']);
-    
-        const validation = await validate({ refresh_token }, rules);
-    
-        const decrypted = Encryption.decrypt(refresh_token);
-    
-        if (!validation.fails()) {
-          try {
-            const refreshToken = await Token.findBy('token', decrypted);
-            if (refreshToken) {
-              refreshToken.delete();
-              response.status(200).send({ status: 'ok' });
-            } else {
-              response.status(401).send({ error: 'Invalid refresh token' });
-            }
-          } catch (err) {
-            response.status(401).send({ error: err.toString()});
-          }
-        } else {
-          response.status(401).send(validation.messages());
-        }
-
+    async logout({ request, response, auth}) {
+      
+      try{
+        const isLogeddin = await auth.check()
+        await auth.logout()
+        response.status(200).send({ message : 'Sucessfully Logged out!'})
+      }catch(err){
+        response.status(401).send({ error: 'Have no one user logged in!' })
       }
+
+    }
 }
 
 module.exports = SessionController
