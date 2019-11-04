@@ -30,12 +30,20 @@ class User extends Model {
     return this.hasMany('App/Models/Question','id','user_id')
   }
 
-  makeExams() {
-    return this.belongsToMany('App/Models/Exam','user_id','exam_id','id','id').pivotTable('user_make_exam').withTimestamps()
+  exams() {
+    return this.hasMany('App/Models/Exam')
   }
 
-  exams() {
-    return this.hasMany('App/Models/Exam', 'id', 'exam_id')
+  badges(){
+    return this.hasMany('App/Models/Badge')
+  }
+
+  userHasBadge(){
+    return this.belongsToMany('App/Models/Badge','user_id','badge_id','id','id').pivotTable('user_has_badge').withTimestamps()
+  }
+
+  makeExams() {
+    return this.belongsToMany('App/Models/Exam','user_id','exam_id','id','id').pivotTable('user_make_exam').withTimestamps()
   }
 
   static get traits () {

@@ -16,7 +16,7 @@ module.exports = {
   | Available Serializers - lucid, database
   |
   */
-  authenticator: 'session',
+  authenticator: 'api',
 
   /*
   |--------------------------------------------------------------------------
@@ -27,13 +27,13 @@ module.exports = {
   | Session authentication is always persistent.
   |
   */
- session: {
-   serializer: 'lucid',
-   scheme: 'session',
-   model: 'App/Models/User',
-   uid: 'email',
-   password: 'password'
- },
+  session: {
+    serializer: 'lucid',
+    scheme: 'session',
+    model: 'App/Models/User',
+    uid: 'email',
+    password: 'password'
+  },
 
   /*
   |--------------------------------------------------------------------------
@@ -72,8 +72,7 @@ module.exports = {
     uid: 'email',
     password: 'password',
     options: {
-      secret: Env.get('APP_KEY'),
-      expiresIn: 1800
+      secret: Env.get('APP_KEY')
     }
   },
 

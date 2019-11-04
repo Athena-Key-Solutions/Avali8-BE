@@ -2,10 +2,8 @@
 
 const User = use("App/Models/User")
 const Question = use("App/Models/Question")
+const Exam = use("App/Models/Exam")
 const { validate } = use('Validator');
-const Encryption = use('Encryption');
-const Token = use('App/Models/Token');
-
 
 class UserController {
     
@@ -39,46 +37,16 @@ class UserController {
       }
   }
 
-  async show({request, response}){
-    // const user = await auth.getUser()
-    // const user = await auth.getUser()
-
-    // const user = await auth.getUser()
-    // const auth0 = await user.authenticator('jwt').generate(user)
-    const { refresh_token } = request.only(['refresh_token'])
-    const decrypted = Encryption.decrypt(refresh_token)
-    console.log("Console Log: "+decrypted)
-
+  async storeQuestion({ request, auth, response}) {
+    
     try {
-      
-      const refreshToken = await Token.findBy('token', decrypted)
-      
-      if (refreshToken) {
-        const user = refreshToken.users().fetch()
-        
-        return user;
-
-      } else {
-        response.status(401).send({ error: 'Invalid refresh token' })
-      }
-    } catch (err) {
-      response.status(401).send({ error: err.toString()})
+      await auth.check()
+    } catch (error) {
+      response.status(401).send({message: 'Missing or invalid api token'})
     }
-
-  }
-
-
-  async index ({ request, response, view }) {
-  }
-  
-  async store ({ request, response }) {
-  }
-
-  //Passar esse método do controller de User para Controller de Question e passar como parâmetro o id do usuário autenticado.
-  async storeQuestion({ request, response}) {
     
     const {questionData, alternatives} = request.post()
-    const user = await User.find(1)
+    const user = await auth.getUser()
     const recordedQuestion = await user.questions().create(questionData)
     await recordedQuestion.alternatives().create(alternatives)
     await user.load('questions.alternatives')
@@ -86,29 +54,130 @@ class UserController {
     return user
   }
 
-  // Passar para o Controller de question, com o usuario autenticado como parâmetro 
-  async indexQuestion({request, response}){
-    const users = User.query().with('questions').fetch()
-
-    return users
-  }
-
-  /*async show ({ auth, params, response }) {
+  async getQuestionsByUser({auth, response}) {
     
-    // try {
-      return await auth.listTokens()
-    // } catch (error) {
-    //   response.send('You are not logged in')
-    // }
-  }*/
+    try {
+      await auth.check()
+    } catch (error) {
+      response.status(401).send({message: 'Missing or invalid api token'})
+    }
+    try {
+      const user = await auth.getUser()
+      await user.load('questions.alternatives')
+    } catch (error) {
+      response.status(401).send('You are not logged in')
+    }
 
-  async edit ({ params, request, response, view }) {
+    return user
+
+  }
+
+
+  async show ({ auth, response, params }) {
+    
+    const id = params.id
+
+    try {
+      await auth.check()
+    } catch (error) {
+      response.status(401).send({message: 'Missing or invalid api token'})
+    }
+
+    try {
+
+      const loggedUser = await auth.getUser()
+
+      if(loggedUser.id == id){
+        const user = await User.find(id)
+        return user
+      }else{
+        response.status(401).send({message: 'This account is not yours.'})
+      }
+
+    } catch (error) {
+      response.status(401).send({message: 'Missing id.'})
+    }
+  }
+
+  async list(response){
+    
+    try{
+      const users = await User.all()
+      return users
+    }catch(err){
+      response.status(422).send({message: 'Have no user.'})
+    }
+    
+  }
+
+  async listExam(response){
+    try{
+      const exams = await Exam.all()
+      return exams
+    }catch(err){
+      response.status(422).send({message: 'Have no exams.'})
+    }
   }
   
-  async update ({ params, request, response }) {
-  }
-  
-  async destroy ({ params, request, response }) {
+  async edit ({ params, request, response, auth }) {
+
+    const user = await auth.getUser()
+
+    if(parseInt(params.id) === user.id){
+      
+      const data = request.post(['name','bio','password'])
+      
+      if(data.name && data.password && data.bio){
+      
+        user.merge(data)
+        await user.save()
+        response.status(200).send({message: 'User has been updated.'})
+      
+      }else if(data.name && data.password && !data.bio){
+      
+        user.merge({name: data.name, password: data.password})
+        await user.save()
+        response.status(200).send({message: 'User has been updated.'})
+
+      }else if(data.name && data.bio && !data.password){
+      
+        user.merge({name: data.name, bio: data.bio})
+        await user.save()
+        response.status(200).send({message: 'User has been updated.'})
+
+      }else if(data.password && data.bio && !data.name){
+        
+        user.merge({password: data.password, bio: data.bio})
+        await user.save()
+        response.status(200).send({message: 'User has been updated.'})
+
+      }else if(data.name && !data.password && !data.bio){
+      
+        user.merge({name: data.name})
+        await user.save()
+        response.status(200).send({message: 'User has been updated.'})
+      
+      }else if(!data.name && !data.bio && data.password){
+      
+        user.merge({password: data.password})
+        await user.save()
+        response.status(200).send({message: 'User has been updated.'})
+      
+      }else if(!data.name && !data.password && data.bio){
+      
+        user.merge({bio: data.bio})
+        await user.save()
+        response.status(200).send({message: 'User has been updated.'})
+      
+      }else{
+        response.status(422).send({message: "Missing data."})
+      }
+      
+    }else{
+      response.status(401).send({message: "You don't have permission to edit this user."})
+    }
+    
+    
   }
 
 }

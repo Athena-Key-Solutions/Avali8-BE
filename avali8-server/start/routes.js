@@ -23,14 +23,29 @@ Route.group(() => {
   Route.post('/signup', 'UserController.create')
   Route.post('/login', 'SessionController.login')
   
-}).prefix('avali8/api/v1')
+}).prefix('avali8/api/v1').middleware('guest')
 
 // Those routes should be only accessible
 // when you are logged in
 Route.group(() => {
-  Route.post('/logout', 'SessionController.logout')
-  Route.post('/token/refresh', 'SessionController.refreshToken')
-}).prefix('avali8/api/v1')
+  Route.post('/logout','SessionController.logout')
+  Route.post('/user/:id','UserController.show')
+  Route.post('/user/edit/:id','UserController.edit')
+  Route.post('/examlist','UserController.listExam')
+  Route.post('/userlist','UserController.list')
+  Route.post('/make-exam/user/:id/question/:id','UserController.makeExam')
+}).prefix('avali8/api/v1').middleware('auth')
+
+Route.group(() => {
+  Route.post('/signup','AdminController.createContentCreatorUser')
+}).prefix('avali8/api/v1/admin').middleware(['auth','is:administrator'])
+
+
+Route.group(() => {
+  Route.post('/add-question','ContentCreatorController.createQuestion')
+  Route.post('/add-exam','ContentCreatorController.createExam')
+}).prefix('avali8/api/v1/content-creator').middleware(['auth','is:content-creator'])
+
 
 Route.get('/', () => {
   return '<p>Avali8 API</p>'
@@ -40,5 +55,5 @@ Route.post('/testQuestion','QuestionController.store')
 Route.get('/questions', 'QuestionController.index')
 Route.post('/createQuestion', 'UserController.storeQuestion')
 Route.post('/userquestions', 'UserController.indexQuestion')
-Route.post('/user','UserController.show').middleware('auth:session')
+
 

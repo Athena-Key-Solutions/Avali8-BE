@@ -14,7 +14,11 @@ class Exam extends Model {
     }
 
     users() {
-        return this.belongsTo('App/Models/User','id','exam_id')
+        return this.belongsTo('App/Models/User')
+    }
+
+    badges() {
+        return this.hasOne('App/Models/Badge')
     }
 }
 

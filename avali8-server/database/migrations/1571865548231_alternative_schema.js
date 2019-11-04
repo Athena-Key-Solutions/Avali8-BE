@@ -21,6 +21,7 @@ class AlternativeSchema extends Schema {
       table.string('c',500)
       table.string('d',500)
       table.enu('right_alternative',['a','b','c','d']).notNullable()
+      table.enu('selected_alternative', ['a','b','c','d'])
       table.timestamps()
       
     })

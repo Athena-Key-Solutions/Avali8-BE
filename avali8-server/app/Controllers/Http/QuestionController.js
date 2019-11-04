@@ -11,15 +11,7 @@ const Alternative = use('App/Models/Alternative')
  * Resourceful controller for interacting with questions
  */
 class QuestionController {
-  /**
-   * Show a list of all questions.
-   * GET questions
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+  
   async index ({ request, response, view }) {
     
     const questions = await Question.query().with('alternatives').fetch()
@@ -27,29 +19,9 @@ class QuestionController {
     return questions
   }
 
-  /**
-   * Render a form to be used for creating a new question.
-   * GET questions/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
-
-  /**
-   * Create/save a new question.
-   * POST questions
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async store ({ request, response }) {
     
-    const {alternatives, ...data} = request.only(['description', 'area', 'difficulty', 'alternatives'])
+    const {alternatives, ...data} = request.only(['description', 'area', 'difficulty', 'alternatives','score'])
     
     const question = await Question.create(data)
 
@@ -61,51 +33,12 @@ class QuestionController {
     return question
   }
 
-  /**
-   * Display a single question.
-   * GET questions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show ({ params, request, response, view }) {
+  async indexQuestion({request, response}){
+    const users = User.query().with('questions').fetch()
+
+    return users
   }
 
-  /**
-   * Render a form to update an existing question.
-   * GET questions/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
-
-  /**
-   * Update question details.
-   * PUT or PATCH questions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update ({ params, request, response }) {
-  }
-
-  /**
-   * Delete a question with id.
-   * DELETE questions/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async destroy ({ params, request, response }) {
-  }
 
 }
 

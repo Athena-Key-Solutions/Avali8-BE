@@ -34,10 +34,14 @@ class UserSeeder {
     await roleContentCreator.save()*/
 
     // const user = await User.find(1)
-    const question = await Question.find(1)
-    const alternative = await Alternative.find(1)
+    //const question = await Question.find(1)
+    //const alternative = await Alternative.find(1)
     
-    console.log(await question.alternatives().fetch())
+    //console.log(await question.alternatives().fetch())
+
+    const user = await User.find(1)
+    await user.roles().attach([1])
+
     
     
     // await Factory.model('App/Models/User').create()

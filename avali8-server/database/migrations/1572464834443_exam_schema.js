@@ -15,6 +15,7 @@ class ExamSchema extends Schema {
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
       .index('user_id')
+      table.string('name',500).notNullable()
       table.string('area',100).notNullable()
       table.enu('difficulty',['easy','medium','hard'])
       table.timestamps()

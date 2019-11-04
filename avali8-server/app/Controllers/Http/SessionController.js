@@ -7,41 +7,33 @@ const { validate } = use('Validator');
 
 class SessionController {
 
-    async login ({ request, auth, response }) { 
+    async login ({ request, auth }) { 
+        
+      const { email, password } = request.all()
+    
+      const token = await auth.attempt(email, password)
+      
+      return token
 
-      const { email, password } = request.all();
-      
-      try{
-        const isLogeddin = await auth.check()
-        
-        if(isLogeddin){
-          
-          response.status(401).send({ alert: 'User already logged in!' })
-        
-        }
-      }catch(err){
-        try{
-          await auth.attempt(email, password)
-          const user = await auth.getUser()
-          response.status(200).send({ message : 'Sucessfully Logged in!', user })
-        }catch(err){
-          response.status(401).send({ error: 'Credentials Invalid!' })
-        }
-      }
-      
     }
 
-    async logout({ request, response, auth}) {
+    async logout({ response, auth}) {
       
-      try{
-        const isLogeddin = await auth.check()
-        await auth.logout()
-        response.status(200).send({ message : 'Sucessfully Logged out!'})
-      }catch(err){
-        response.status(401).send({ error: 'Have no one user logged in!' })
+      try {
+        const check = await auth.check();
+  
+        if (check) {
+          const token = await auth.getAuthHeader();
+          await auth.authenticator("api").revokeTokens([token]);
+          return response.status(200).send({ message: "Logout successfully!" });
+        }
+      } catch (error) {
+        return response.status(401).send({ message: "Invalid api token" });
       }
 
     }
+
+    async showUser({request, response, auth}) {}
 }
 
 module.exports = SessionController

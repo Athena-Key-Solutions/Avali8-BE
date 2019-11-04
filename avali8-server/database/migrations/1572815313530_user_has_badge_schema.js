@@ -3,11 +3,11 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class UserMakeExamSchema extends Schema {
+class UserHasBadgeSchema extends Schema {
   up () {
-    this.create('user_makes_exam', (table) => {
-
+    this.create('user_has_badge', (table) => {
       table.increments()
+      
       table.integer('user_id')
       .unsigned()
       .references('id')
@@ -16,21 +16,21 @@ class UserMakeExamSchema extends Schema {
       .onDelete('CASCADE')
       .index('user_id')
 
-      table.integer('exam_id')
+      table.integer('badge_id')
       .unsigned()
       .references('id')
-      .inTable('exams')
+      .inTable('badges')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
-      .index('exam_id')
-      table.integer('score').unsigned().notNullable()
+      .index('badge_id')
+
       table.timestamps()
     })
   }
 
   down () {
-    this.drop('user_makes_exam')
+    this.drop('user_has_badge')
   }
 }
 
-module.exports = UserMakeExamSchema
+module.exports = UserHasBadgeSchema

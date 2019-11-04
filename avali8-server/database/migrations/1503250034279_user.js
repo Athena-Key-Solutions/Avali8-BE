@@ -13,7 +13,8 @@ class UserSchema extends Schema {
       table.integer('level').defaultTo(1).unsigned()
       table.string('profile_image',255)
       table.string('email', 254).notNullable().unique()
-      table.string('password', 60).notNullable()
+      table.string('password', 80).notNullable()
+      table.string('bio',1000)
       table.timestamps()
     })
   }
