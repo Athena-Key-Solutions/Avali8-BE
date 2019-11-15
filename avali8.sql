@@ -345,7 +345,7 @@ CREATE TABLE `tokens` (
   UNIQUE KEY `tokens_token_unique` (`token`),
   KEY `tokens_user_id_foreign` (`user_id`),
   CONSTRAINT `tokens_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,7 +354,7 @@ CREATE TABLE `tokens` (
 
 LOCK TABLES `tokens` WRITE;
 /*!40000 ALTER TABLE `tokens` DISABLE KEYS */;
-INSERT INTO `tokens` VALUES (1,1,'f70ca630a7064332b8daefd462b69a76','api_token',1,'2019-11-03 20:34:21','2019-11-03 20:44:39'),(2,2,'47ac799168ed480baa8afa18576aff88','api_token',0,'2019-11-03 20:55:50','2019-11-03 20:55:50');
+INSERT INTO `tokens` VALUES (12,3,'c6601c9ba91a43439e8cce546af91d1d','api_token',0,'2019-11-12 23:54:21','2019-11-12 23:54:21'),(13,3,'5dc76eb3d4304920aa6ae7a7e36ec22b','api_token',0,'2019-11-13 00:24:20','2019-11-13 00:24:20'),(14,2,'1d166747ef274d24905931a3c036df9f','api_token',1,'2019-11-13 00:51:05','2019-11-13 00:55:04'),(15,2,'3537d57b438e4a33a0d6dd464cbd05c7','api_token',1,'2019-11-13 00:55:48','2019-11-13 00:56:02'),(16,2,'ba1ce376db3a437997c9ec132315a7c2','api_token',0,'2019-11-13 00:56:10','2019-11-13 00:56:10'),(17,2,'ffdb3fea30794fb9ae0231c540be0294','api_token',1,'2019-11-13 00:58:16','2019-11-13 01:06:31'),(18,2,'ec5bc97af09e48f8a6c2339f8d3c11b4','api_token',1,'2019-11-13 01:06:40','2019-11-13 01:08:22'),(19,2,'ad464601e42d4ca7b236fd52582936ff','api_token',0,'2019-11-13 01:28:20','2019-11-13 01:28:20'),(20,2,'f6ec9557ef0442dc8755dfd8c7f74606','api_token',0,'2019-11-13 07:44:00','2019-11-13 07:44:00'),(21,2,'74b902e277df471cbca6003a136029ca','api_token',1,'2019-11-13 07:44:32','2019-11-13 07:50:33'),(22,2,'0763542b6e504900b0a582b098f9cc1f','api_token',0,'2019-11-13 08:01:06','2019-11-13 08:01:06'),(23,2,'f6c00e62e7a949d59249d63e6c54fd58','api_token',0,'2019-11-13 08:06:06','2019-11-13 08:06:06'),(24,2,'afa7d045dace41e4bfdd49d6ed228fb7','api_token',0,'2019-11-13 08:06:19','2019-11-13 08:06:19'),(25,2,'527f7d245db24ab28f4c884f327b9f4f','api_token',1,'2019-11-13 08:07:17','2019-11-13 08:20:37'),(26,2,'84653823712b43309c71954da02279b4','api_token',0,'2019-11-13 08:28:49','2019-11-13 08:28:49'),(27,2,'30112ecc460744d88ac741ef05d11e5b','api_token',0,'2019-11-13 08:29:55','2019-11-13 08:29:55'),(28,2,'72a2534c6f1e49cfaca720bc719ba2a6','api_token',0,'2019-11-13 08:29:58','2019-11-13 08:29:58'),(29,2,'149d21421d204beb81ee250e1c3a9a92','api_token',0,'2019-11-13 08:33:27','2019-11-13 08:33:27'),(30,2,'a0900b09f2bd45efaa31898006c5879b','api_token',0,'2019-11-13 08:35:44','2019-11-13 08:35:44'),(31,2,'d811f72243684e85a276cbd2f5f1dcb2','api_token',1,'2019-11-13 08:36:27','2019-11-13 08:37:18'),(32,2,'ad48d6049bb745c68c2ed7c7da945035','api_token',0,'2019-11-13 08:37:14','2019-11-13 08:37:14'),(33,2,'2ff29d1c53744629bc1a1b8dc2509ae1','api_token',0,'2019-11-13 08:40:13','2019-11-13 08:40:13'),(34,2,'572090c3fd9f42de9be2fec0dce6ca00','api_token',0,'2019-11-13 08:40:31','2019-11-13 08:40:31'),(35,2,'0d889b0fe8a84dee9f850cfc70000f78','api_token',0,'2019-11-13 08:41:40','2019-11-13 08:41:40'),(36,2,'4f0aeed8b74b4dc6882cd0e1d4cf51d5','api_token',1,'2019-11-13 08:45:46','2019-11-13 08:54:26'),(37,2,'3c0e54816c4c49d298387746104785b8','api_token',1,'2019-11-13 08:55:28','2019-11-13 09:00:01'),(38,2,'5f72ea80893e484b8ac8807610abd263','api_token',1,'2019-11-13 09:00:09','2019-11-13 09:01:51'),(39,2,'f4546a6b26e349fb8a4ab0bda3f73a80','api_token',1,'2019-11-13 09:09:09','2019-11-13 09:10:22'),(40,2,'01a8034897ad49dbb948fa45bfceb4f5','api_token',1,'2019-11-13 09:10:29','2019-11-13 09:12:00'),(41,2,'6779e65c2597481fbf8eed9ebe56eb48','api_token',1,'2019-11-13 09:12:10','2019-11-13 09:12:35'),(42,2,'17afbac6b97a48fea863edec7a4eccfd','api_token',1,'2019-11-13 09:12:44','2019-11-13 09:13:22'),(43,2,'565ec4d14f6948f3abd53e8cf43378df','api_token',1,'2019-11-13 09:13:34','2019-11-13 09:14:06'),(44,2,'8cbd1613b9324f87acb9f5e1c9db30b8','api_token',1,'2019-11-13 09:14:13','2019-11-13 09:15:14'),(45,2,'a15a4369e7644be1983b353ab0565e10','api_token',1,'2019-11-13 09:15:22','2019-11-13 09:15:39'),(46,2,'9679eeca4bfa48738d23d8da8680ede9','api_token',1,'2019-11-13 09:16:06','2019-11-13 09:17:01'),(47,2,'c4e57cdf37954863a64d9f28b9ff31e6','api_token',1,'2019-11-13 09:17:08','2019-11-13 09:19:15'),(48,2,'d6607a87f3cb4c9989db5a86ec247c5f','api_token',1,'2019-11-13 09:31:20','2019-11-13 09:43:34'),(49,2,'62e22a4508ae4b34a91d4e7206b5cd64','api_token',1,'2019-11-13 09:43:46','2019-11-13 09:47:47'),(50,2,'e5b06cc28cd443b1b047d1200a3e402e','api_token',1,'2019-11-13 09:47:53','2019-11-13 09:59:26'),(51,2,'c4b67c8c26954db68360ee37a38f23cb','api_token',1,'2019-11-13 09:59:38','2019-11-13 10:28:24'),(52,2,'f2a8a4e547d54ae9a74a22334e96f77c','api_token',1,'2019-11-13 10:28:32','2019-11-13 10:37:47'),(53,2,'5d6c8e404fdb466b9af064ffabdc859d','api_token',1,'2019-11-13 10:37:56','2019-11-13 10:38:22'),(54,2,'3fa95b32f9d64733825870f91cf07901','api_token',1,'2019-11-13 10:38:31','2019-11-13 10:38:48'),(55,2,'64c0253b4cd44e989cb47064121e8ccc','api_token',1,'2019-11-13 10:38:58','2019-11-13 10:39:41'),(56,2,'7d7d5d60c4dd4c45af7f2c763c1c4346','api_token',1,'2019-11-13 10:39:49','2019-11-13 10:40:51'),(57,2,'6bbfeb5335c642f7b9d11508bec4a567','api_token',1,'2019-11-13 10:41:00','2019-11-13 10:41:51'),(58,2,'ec025876d18d4a8782ed50c4ca2926d0','api_token',1,'2019-11-13 10:42:01','2019-11-13 10:58:16'),(59,2,'f3ff1ad9696b4549b8940f77188864ba','api_token',1,'2019-11-13 10:58:27','2019-11-13 10:59:58'),(60,2,'ea99a96c912d4ed7ad63401a358c297b','api_token',1,'2019-11-13 11:00:08','2019-11-13 15:27:11'),(61,2,'db9913231f944fa5919a8167221702b4','api_token',0,'2019-11-13 15:27:19','2019-11-13 15:27:19');
 /*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,7 +441,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_username_unique` (`username`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -450,7 +450,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Henrique','test3423',0,1,NULL,'test523@gmail.com','$2a$10$LtoNrViDa3..tJEp3/C/vetHfmTlyLP0/Vxj5v3oXDCqCa84Wk3Be',NULL,'2019-11-03 20:21:30','2019-11-03 20:21:30'),(2,'Kaio','test',0,1,NULL,'test@cc.com','$2a$10$kVxUyxyFavd9khUGyKs5lOffMoxgIZWIPMSWZAt.zEeSVnddHtqdm','Ain eu sou kokete','2019-11-03 20:35:08','2019-11-03 22:30:37');
+INSERT INTO `users` VALUES (1,'Henrique','test3423',0,1,NULL,'test523@gmail.com','$2a$10$LtoNrViDa3..tJEp3/C/vetHfmTlyLP0/Vxj5v3oXDCqCa84Wk3Be',NULL,'2019-11-03 20:21:30','2019-11-03 20:21:30'),(2,'Kaio','test',0,1,NULL,'test@cc.com','$2a$10$kVxUyxyFavd9khUGyKs5lOffMoxgIZWIPMSWZAt.zEeSVnddHtqdm','Ain eu sou kokete','2019-11-03 20:35:08','2019-11-03 22:30:37'),(3,'Henrique','test1',0,1,'https://api.adorable.io/avatars/testavatar@gmail.com','testavatar@gmail.com','$2a$10$SQRKf0cbDKizq8WqoA/4luULZIIJAeG3WLBxYRGkyd/8sZZiMXyi6',NULL,'2019-11-12 21:27:02','2019-11-12 21:27:02');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -463,4 +463,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-03 22:21:34
+-- Dump completed on 2019-11-15 12:23:33
