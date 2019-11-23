@@ -73,30 +73,14 @@ class UserController {
   }
 
 
-  async show ({ auth, response, params }) {
-    
-    const id = params.id
+  async show ({ auth, response }) {
 
     try {
       await auth.check()
     } catch (error) {
       response.status(401).send({message: 'Missing or invalid api token'})
     }
-
-    try {
-
-      const loggedUser = await auth.getUser()
-
-      if(loggedUser.id == id){
-        const user = await User.find(id)
-        return user
-      }else{
-        response.status(401).send({message: 'This account is not yours.'})
-      }
-
-    } catch (error) {
-      response.status(401).send({message: 'Missing id.'})
-    }
+    return auth.getUser();
   }
 
   async list(response){

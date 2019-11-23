@@ -29,7 +29,7 @@ Route.group(() => {
 // when you are logged in
 Route.group(() => {
   Route.post('/logout','SessionController.logout')
-  Route.post('/user/:id','UserController.show')
+  Route.post('/user','UserController.show')
   Route.post('/user/edit/:id','UserController.edit')
   Route.post('/examlist','UserController.listExam')
   Route.post('/userlist','UserController.list')
